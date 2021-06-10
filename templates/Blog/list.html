@@ -1,0 +1,79 @@
+{% extends "_MainLayout.html" %}
+{% load static %}
+{% load BaseTags %}
+{% block Main %}
+
+
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url({% static 'img/home-bg.jpg' %})">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>programming blog</h1>
+                        <span class="subheading">amazing weblog for programmer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% block header %}
+                    <h3 class="alert alert-primary text-center">
+                        نام دسته بندی : {{ category.title }}
+                    </h3>
+                {% endblock %}
+                {% for article in object_list %}
+                    <div class="post-preview">
+                        <a href="{% url 'Blog:Article' article.slug %}">
+                            <h2 class="post-title">
+                                {{ article.title }}
+                            </h2>
+                            <h3 class="post-subtiBlog:Category">
+                                {{ article.description|truncatewords:30 }}
+                            </h3>
+                        </a>
+                        <p class="post-meta">
+                            ارائه شده توسط :
+                            <a href="{% url "Blog:Author" article.author %}">{{ article.author.get_full_name }}</a>
+                            {{ article.jpublish }}
+                        <div>
+
+                            {% for cat in article.category_published %}
+                                <a href="{% url 'Blog:Category' cat.slug %}">#{{ cat.title }}</a>
+                            {% endfor %}
+                        </div>
+                        </p>
+                    </div>
+                    <hr>
+                {% endfor %}
+                <!-- Pager -->
+                {% if is_paginated %}
+                    <div class="clearfix pager-botton">
+                        {% if page_obj.has_previous %}
+                            <a class="btn btn-primary float-right"
+                               href="{% block next_page_pervious %}{% endblock %}">&rarr;مقاله های جدید </a>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <a class="btn btn-primary float-right mr-5"
+                               href="{% block next_page_url %}{% endblock %}"> مقاله های قدیمی&larr;</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
