@@ -1,0 +1,15 @@
+{% load BaseTags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url link %}"
+   class="nav-link {% if request.resolver_match.url_name == link_name %}active{% endif %}">
+    <i class="fa fa-edit nav-icon"></i>
+    <p>{{ content }}</p>
+</a>
+</body>
+</html>

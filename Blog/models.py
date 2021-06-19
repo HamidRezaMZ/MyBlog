@@ -1,8 +1,10 @@
 from django.db import models
-from django.utils import timezone
+from django.utils.timezone import now
 from extensions.utils import jalali_converter
 from django.utils.html import format_html
-from django.contrib.auth.models import User
+from Account.models import User
+from django.urls import reverse
+
 
 # managers
 class ArticleManager(models.Manager):
@@ -39,16 +41,20 @@ class Article(models.Model):
         ('d', 'پیش نویس'),
         ('p', 'منتشر شده')
     )
-    author = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name="articles",verbose_name="نویسنده")
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name="articles",
+                               verbose_name="نویسنده")
     title = models.CharField(max_length=250, verbose_name='عنوان')
     slug = models.SlugField(max_length=500, unique=True, verbose_name='آدرس مقاله')
     category = models.ManyToManyField(Category, verbose_name="دسته بندی", related_name="article")
     description = models.TextField(verbose_name='توضیحات')
     image = models.ImageField(upload_to="", verbose_name='تصویر')
-    publish = models.DateTimeField(default=timezone.now(), verbose_name='تاریخ انتشار')
+    publish = models.DateTimeField(default=now(), verbose_name='تاریخ انتشار')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت')
+
+    def get_absolute_url(self):
+        return reverse("account:home")
 
     def __str__(self):
         return self.title
@@ -70,4 +76,10 @@ class Article(models.Model):
         return format_html("<img width=100 height=75 style='border-radius: 5px;' src='{}'>".format(self.image.url))
 
     image_tag.short_description = "تصویر"
+
+    def category_to_str(self):
+        return ", ".join([category.title for category in self.category_published()])
+
+    category_to_str.short_description = "دسته بندی"
+
     objects = ArticleManager()

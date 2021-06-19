@@ -1,40 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
-from django.core.paginator import Paginator
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.models import User
-
-
-# def home_page(request, page=1):
-#     article_list = Article.objects.published()
-#     paginator = Paginator(article_list, 2)
-#     article = paginator.get_page(page)
-#
-#     context = {
-#         "articles": article,
-#         "category": Category.objects.filter(status=True)
-#     }
-#
-#     return render(request, "article_list.html", context)
-
-# def detail_article(request, slug):
-#     context = {
-#         "article": get_object_or_404(Article.objects.published(), slug=slug),
-#     }
-#
-#     return render(request, "DetailArticle.html", context)
-# def category_page(request, slug, page=1):
-#     category = get_object_or_404(Category, slug=slug, status=True)
-#     article_list = Article.objects.published()
-#     paginator = Paginator(article_list, 2)
-#     article = paginator.get_page(page)
-#     context = {
-#         "category": category,
-#         "article": article,
-#     }
-#
-#     return render(request, "Category.html", context)
+from Account.models import User
+from Account.mixins import AuthorAccessMixin
 
 
 class ArticleList(ListView):
@@ -46,6 +15,12 @@ class ArticleDetail(DetailView):
     def get_object(self, queryset=None):
         slug = self.kwargs.get('slug')
         return get_object_or_404(Article.objects.published(), slug=slug)
+
+
+class ArticlePreview(AuthorAccessMixin, DetailView):
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Article, pk=pk)
 
 
 class CategoryList(ListView):

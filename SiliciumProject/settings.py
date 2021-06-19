@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'Blog.apps.BlogConfig',
     'Account.apps.AccountConfig',
     'extensions',
+    'widget_tweaks',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -115,7 +117,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -135,3 +136,7 @@ MEDIA_ROOT = BASE_DIR / "static_cdn" / "media_root"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTH_USER_MODEL = 'Account.User'

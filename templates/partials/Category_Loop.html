@@ -1,11 +1,10 @@
 <ul class="navbar-nav ml-auto">
-    {% for cat in cat.chilren %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'Blog:Category' cat.slug %}">{{ cat.title }}</a>
-            {% if cat.children.active %}
-                {% include "partials/Category_Loop.html" %}
-            {% endif %}
-        </li>
-    {% endfor %}
-
+  {% for cat in cat.children.active %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'Blog:Category' cat.slug %}">{{cat.title}}</a>
+      {% if cat.children.active %}
+        {% include 'Blog/partials/Category_Loop.html' %}
+      {% endif %}
+    </li>
+  {% endfor %}
 </ul>

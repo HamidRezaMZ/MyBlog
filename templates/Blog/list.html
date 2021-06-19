@@ -6,7 +6,7 @@
 
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url({% static 'img/home-bg.jpg' %})">
+    <header class="masthead" style="background-image: url({% static 'main_static_file/img/home-bg.jpg' %})">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
@@ -36,7 +36,7 @@
                                 {{ article.title }}
                             </h2>
                             <h3 class="post-subtiBlog:Category">
-                                {{ article.description|truncatewords:30 }}
+                                {{ article.description|striptags|safe|truncatewords:30 }}
                             </h3>
                         </a>
                         <p class="post-meta">

@@ -1,10 +1,85 @@
+{% extends "registration/base.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title-meta %}
+        صفحه اصلی
+    {% endblock %}</title>
 </head>
 <body>
-hello
+{% block title %}
+    لیست مقالات
+{% endblock %}
+
+{% block Main %}
+    <div class="row">
+        <div class="col-12">
+            {% if object_list %}
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>عنوان</th>
+                                <th>تصویر</th>
+                                <th>نویسنده</th>
+                                <th>دسته بندی</th>
+                                <th>متن</th>
+                                <th>تاریخ انتشار</th>
+                                <th>وضعیت</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for article in object_list %}
+                                <tr>
+                                    {% if article.status == 'd' or user.is_superuser %}
+                                        <td>
+                                            <a href="{% url 'account:article-update' article.pk %}">{{ article.title }}</a>
+                                        </td>
+                                    {% else %}
+                                        {{ article.title }}
+                                    {% endif %}
+                                    <td><img src="{{ article.image.url }}" alt="image" width="120px"></td>
+                                    <td>{{ article.author.get_full_name }}</td>
+                                    <td>{{ article.description|striptags|safe|truncatewords:30 }}</td>
+                                    <td>{{ article.category_to_str }}</td>
+                                    <td>{{ article.jpublish }}</td>
+                                    <td>
+                                        {% if article.status == 'p' %}
+                                            <span class="badge badge-success">منتشر شده</span>
+                                            <a href="{% url "Blog:Article" article.slug %}" target="_blank"
+                                               class="badge badge-primary">نمایش مقاله</a>
+                                        {% else %}
+                                            <span class="badge badge-danger">پیش نویس</span>
+                                            <a href="{% url "Blog:Preview" article.pk %}" target="_blank"
+                                               class="badge badge-secondary">نمایش مقاله در سایت</a>
+                                        {% endif %}
+                                        {% if user.is_superuser %}
+                                            <a href="{% url "account:article-delete" article.pk %}"
+                                               class="badge badge-danger">حذف</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            {% else %}
+                <h3>محتوایی برای نمایش وجود ندارد.</h3>
+                {% if request.user.is_superuser or request.user.is_author %}
+                    <h3><a href="{% url 'account:article-create' %}">مقاله بنویسید</a></h3>
+                {% endif %}
+
+            {% endif %}
+            <!-- /.card -->
+        </div>
+    </div>
+{% endblock %}
 </body>
 </html>

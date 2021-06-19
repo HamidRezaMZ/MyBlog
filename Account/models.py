@@ -1,3 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.utils.timezone import now
 
-# Create your models here.
+
+class User(AbstractUser):
+    is_author = models.BooleanField(default=False, verbose_name="وضغیت نویسندگی")
+    special_user = models.DateTimeField(default=now(), verbose_name="کاربر ویژه تا")
+
+    def is_special_user(self):
+        if self.special_user > now():
+            return True
+        else:
+            return False
+
+    is_special_user.boolean = True
+    is_special_user.short_description = "وضعیت کاربر ویژه"

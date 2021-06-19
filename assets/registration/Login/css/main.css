@@ -61,7 +61,11 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #a64bf4;
+  color: #6a7dfe;
+  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  color: -o-linear-gradient(left, #21d4fd, #b721ff);
+  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  color: linear-gradient(left, #21d4fd, #b721ff);
 }
 
 /*---------------------------------------------*/
@@ -133,31 +137,26 @@ iframe {
 	border: none !important;
 }
 
+
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
   font-family: Poppins-Regular;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 13px;
   color: #666666;
+  line-height: 1.5;
 }
 
 .txt2 {
   font-family: Poppins-Regular;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 13px;
   color: #333333;
-  text-transform: uppercase;
+  line-height: 1.5;
 }
-
-.bg1 {background-color: #3b5998}
-.bg2 {background-color: #1da1f2}
-.bg3 {background-color: #ea4335}
-
-
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
+
 .limiter {
   width: 100%;
   margin: 0 auto;
@@ -175,16 +174,21 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  background: #f2f2f2;  
 }
 
 .wrap-login100 {
-  width: 500px;
+  width: 390px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
+  padding: 77px 55px 33px 55px;
+
+  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -198,13 +202,14 @@ iframe {
 .login100-form-title {
   display: block;
   font-family: Poppins-Bold;
-  font-size: 39px;
+  font-size: 30px;
   color: #333333;
   line-height: 1.2;
   text-align: center;
 }
-
-
+.login100-form-title i {
+  font-size: 60px;
+}
 
 /*------------------------------------------------------------------
 [ Input ]*/
@@ -212,32 +217,24 @@ iframe {
 .wrap-input100 {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid #d9d9d9;
-}
-
-.label-input100 {
-  font-family: Poppins-Regular;
-  font-size: 14px;
-  color: #333333;
-  line-height: 1.5;
-  padding-left: 7px;
+  border-bottom: 2px solid #adadad;
+  margin-bottom: 37px;
 }
 
 .input100 {
-  font-family: Poppins-Medium;
-  font-size: 16px;
-  color: #333333;
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #555555;
   line-height: 1.2;
 
   display: block;
   width: 100%;
-  height: 55px;
+  height: 45px;
   background: transparent;
-  padding: 0 7px 0 43px;
+  padding: 0 5px;
 }
 
-
-/*---------------------------------------------*/
+/*---------------------------------------------*/ 
 .focus-input100 {
   position: absolute;
   display: block;
@@ -248,27 +245,6 @@ iframe {
   pointer-events: none;
 }
 
-.focus-input100::after {
-  content: attr(data-symbol);
-  font-family: Material-Design-Iconic-Font;
-  color: #adadad;
-  font-size: 22px;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  height: calc(100% - 20px);
-  bottom: 0;
-  left: 0;
-  padding-left: 13px;
-  padding-top: 3px;
-}
-
 .focus-input100::before {
   content: "";
   display: block;
@@ -277,29 +253,94 @@ iframe {
   left: 0;
   width: 0;
   height: 2px;
-  background: #7f7f7f;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+
+  background: #6a7dfe;
+  background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  background: -o-linear-gradient(left, #21d4fd, #b721ff);
+  background: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  background: linear-gradient(left, #21d4fd, #b721ff);
+}
+
+.focus-input100::after {
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #999999;
+  line-height: 1.2;
+
+  content: attr(data-placeholder);
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 16px;
+  left: 0px;
+  padding-left: 5px;
+
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
 
+.input100:focus + .focus-input100::after {
+  top: -15px;
+}
 
 .input100:focus + .focus-input100::before {
   width: 100%;
+}
+
+.has-val.input100 + .focus-input100::after {
+  top: -15px;
 }
 
 .has-val.input100 + .focus-input100::before {
   width: 100%;
 }
 
-.input100:focus + .focus-input100::after {
-  color: #a64bf4;
+/*---------------------------------------------*/
+.btn-show-pass {
+  font-size: 15px;
+  color: #999999;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  padding-right: 5px;
+  cursor: pointer;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
-.has-val.input100 + .focus-input100::after {
-  color: #a64bf4;
+.btn-show-pass:hover {
+  color: #6a7dfe;
+  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  color: -o-linear-gradient(left, #21d4fd, #b721ff);
+  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  color: linear-gradient(left, #21d4fd, #b721ff);
 }
+
+.btn-show-pass.active {
+  color: #6a7dfe;
+  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  color: -o-linear-gradient(left, #21d4fd, #b721ff);
+  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  color: linear-gradient(left, #21d4fd, #b721ff);
+}
+
 
 
 /*------------------------------------------------------------------
@@ -312,6 +353,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-top: 13px;
 }
 
 .wrap-login100-form-btn {
@@ -322,12 +364,6 @@ iframe {
   border-radius: 25px;
   overflow: hidden;
   margin: 0 auto;
-
-  box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
-  -moz-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
-  -webkit-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
-  -o-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
-  -ms-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
 }
 
 .login100-form-bgbtn {
@@ -336,10 +372,10 @@ iframe {
   width: 300%;
   height: 100%;
   background: #a64bf4;
-  background: -webkit-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
-  background: -o-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
-  background: -moz-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
-  background: linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background: -webkit-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+  background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+  background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+  background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
   top: 0;
   left: -100%;
 
@@ -351,7 +387,7 @@ iframe {
 
 .login100-form-btn {
   font-family: Poppins-Medium;
-  font-size: 16px;
+  font-size: 15px;
   color: #fff;
   line-height: 1.2;
   text-transform: uppercase;
@@ -374,6 +410,17 @@ iframe {
 
 
 /*------------------------------------------------------------------
+[ Responsive ]*/
+
+@media (max-width: 576px) {
+  .wrap-login100 {
+    padding: 77px 15px 33px 15px;
+  }
+}
+
+
+
+/*------------------------------------------------------------------
 [ Alert validate ]*/
 
 .validate-input {
@@ -388,13 +435,13 @@ iframe {
   border: 1px solid #c80000;
   border-radius: 2px;
   padding: 4px 25px 4px 10px;
-  bottom: calc((100% - 20px) / 2);
-  -webkit-transform: translateY(50%);
-  -moz-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  -o-transform: translateY(50%);
-  transform: translateY(50%);
-  right: 2px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 0px;
   pointer-events: none;
 
   font-family: Poppins-Regular;
@@ -415,17 +462,19 @@ iframe {
 .alert-validate::after {
   content: "\f06a";
   font-family: FontAwesome;
+  font-size: 16px;
+  color: #c80000;
+
   display: block;
   position: absolute;
-  color: #c80000;
-  font-size: 16px;
-  bottom: calc((100% - 20px) / 2);
-  -webkit-transform: translateY(50%);
-  -moz-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  -o-transform: translateY(50%);
-  transform: translateY(50%);
-  right: 8px;
+  background-color: #fff;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 5px;
 }
 
 .alert-validate:hover:before {
@@ -441,36 +490,4 @@ iframe {
 }
 
 
-/*//////////////////////////////////////////////////////////////////
-[ Social item ]*/
-.login100-social-item {
-  font-size: 25px;
-  color: #fff;
 
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 5px;
-}
-
-.login100-social-item:hover {
-  color: #fff;
-  background-color: #333333;
-}
-
-/*//////////////////////////////////////////////////////////////////
-[ Responsive ]*/
-
-@media (max-width: 576px) {
-  .wrap-login100 {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-} 
