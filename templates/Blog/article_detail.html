@@ -24,15 +24,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto text-justify">
-                    {{ object.description|striptags|safe }}
+                    {% if object %}
+                        {% if user.is_authenticated and user.is_special_user or user == obeject.author or user.is_superuser %}
+                            {{ object.description|striptags|safe }}
+                        {% else %}
+                            <p style="font-weight: bold">این مقاله ویژه است و برای نمایش باید <a href="" style="color: #007bff">اشتراک ویژه </a>تهیه کنید</p>
+                        {% endif %}
+                    {% else %}
+                        {{ object.description|striptags|safe }}
+
+                    {% endif %}
+
+
                 </div>
             </div>
         </div>
     </article>
 
 {% endblock %}
-
-
 
 
 {#<div class="row mb-5 justify-content-center text-center">#}

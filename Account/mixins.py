@@ -2,13 +2,14 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from Blog.models import Article
 
+
 class FieldsMixin():
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
             self.fields = ["author", "title", "slug", "category", "description", "image", "publish",
-                           "status", ]
+                           "is_special", "status", ]
         elif request.user.is_author:
-            self.fields = ["title", "slug", "category", "description", "image", "publish", ]
+            self.fields = ["title", "slug", "category", "description", "image", "publish", "is_special", ]
         else:
             raise Http404("شما به این صفحه دسترسی ندارید")
         return super().dispatch(request, *args, **kwargs)
@@ -27,9 +28,9 @@ class FormValidMixin():
 
 
 class AuthorAccessMixin():
-    def dispatch(self, request,pk, *args, **kwargs):
-        article = get_object_or_404(Article,pk=pk)
-        if article.author == request.user and article.status == 'd' or request.user.is_superuser:
+    def dispatch(self, request, pk, *args, **kwargs):
+        article = get_object_or_404(Article, pk=pk)
+        if article.author == request.user and article.status in ['b', 'd'] or request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404("شما به این صفحه دسترسی ندارید")

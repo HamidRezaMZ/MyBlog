@@ -8,7 +8,7 @@
 <body>
 <a href="{% url link %}"
    class="nav-link {% if request.resolver_match.url_name == link_name %}active{% endif %}">
-    <i class="fa fa-edit nav-icon"></i>
+    <i class="fa {{ classes }} nav-icon"></i>
     <p>{{ content }}</p>
 </a>
 </body>

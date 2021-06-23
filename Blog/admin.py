@@ -24,14 +24,12 @@ def make_draft(modeladmin, request, queryset):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'image_tag', 'jpublish','author', 'status', 'category_to_str')
-    list_filter = ('status', 'publish','author')
+    list_display = ('title', 'image_tag', 'jpublish', 'author', 'is_special', 'status', 'category_to_str')
+    list_filter = ('status', 'publish', 'author')
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title',)}
     ordering = ['-status', '-publish']
     actions = [make_published, make_draft]
-
-
 
 
 admin.site.register(Article, ArticleAdmin)
