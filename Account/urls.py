@@ -5,12 +5,6 @@ from .views import *
 app_name = "account"
 
 urlpatterns = [
-
-    path('login/', views.LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-]
-
-urlpatterns += [
     path('', ArticleList.as_view(), name="home"),
     path('article/create', ArticleCreate.as_view(), name="article-create"),
     path('article/update/<int:pk>', ArticleUpdate.as_view(), name="article-update"),

@@ -4,11 +4,13 @@ from django.utils.timezone import now
 
 
 class User(AbstractUser):
+    email = models.EmailField(unique=True,verbose_name="ایمیل")
     is_author = models.BooleanField(default=False, verbose_name="وضغیت نویسندگی")
     special_user = models.DateTimeField(default=now(), verbose_name="کاربر ویژه تا")
 
     def is_special_user(self):
         if self.special_user > now():
+
             return True
         else:
             return False

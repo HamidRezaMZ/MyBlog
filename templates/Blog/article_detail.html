@@ -11,8 +11,11 @@
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="site-heading">
                         <h1>{{ object.title }}</h1>
-                        <hr>
+
                         <time>{{ object.jpublish }}</time>
+                        {% if article.is_special %}
+                            <span class="badge badge-danger"style="font-size: 15px;margin-right: 10px">ویژه</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -28,7 +31,10 @@
                         {% if user.is_authenticated and user.is_special_user or user == obeject.author or user.is_superuser %}
                             {{ object.description|striptags|safe }}
                         {% else %}
-                            <p style="font-weight: bold">این مقاله ویژه است و برای نمایش باید <a href="" style="color: #007bff">اشتراک ویژه </a>تهیه کنید</p>
+                             {{ article.description|striptags|safe|truncatewords:30 }}
+                            <p style="font-weight: bold" class="alert alert-warning">این مقاله ویژه است و برای نمایش باید <a href=""
+                                                                                                 style="color: #007bff" class="alert alert-warning">اشتراک
+                                ویژه </a>تهیه کنید</p>
                         {% endif %}
                     {% else %}
                         {{ object.description|striptags|safe }}
