@@ -7,12 +7,10 @@
        url('Sahel.ttf') format('truetype');
 }
 
-@import url('https://cdn.fontcdn.ir/Font/Persian/Samim/Samim.css');
-
 body {
 	direction: rtl;
 	text-align: right;
-	font-family: "Samim";
+	font-family: "Sahel";
 	font-size: 14px;
 }
 
@@ -112,17 +110,10 @@ header.masthead .site-heading h1 {
     display:block !important;
 }
 
-/*aside {*/
-/*    width: 240px;*/
-/*    position: absolute;*/
-/*    left: -240px;*/
-/*    top: 0;*/
-/*}*/
+aside {
+    width: 240px;
+    position: absolute;
+    left: -240px;
+    top: 0;
+}
 
-/*.popular_articles {*/
-/*    border: 1px solid #bfbfbf;*/
-/*    padding: 15px;*/
-/*    border-radius: 5px;*/
-/*    margin-bottom: 20px;*/
-/*    box-shadow: -5px 5px #d5d5d5;*/
-/*}*/

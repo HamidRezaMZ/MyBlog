@@ -18,7 +18,7 @@ from django.urls import path, include, re_path
 from Account.views import Login, Register, activate
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls,name="admin"),
     path('', include('Blog.urls')),
     path('', include('django.contrib.auth.urls')),
     path('account/', include('Account.urls')),

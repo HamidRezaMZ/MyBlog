@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleList, ArticleDetail, CategoryList, AuthorList, ArticlePreview,SearchList
+from .views import ArticleList, ArticleDetail, CategoryList, AuthorList, ArticlePreview, SearchList, AboutUs
 
 app_name = "Blog"
 
@@ -14,4 +14,7 @@ urlpatterns = [
     path('author/<slug:username>/page/<int:page>', AuthorList.as_view(), name="Author"),
     path('search/', SearchList.as_view(), name="Search"),
     path('search/page/<int:page>', SearchList.as_view(), name="Search"),
+    path('about/', AboutUs, name="About"),
 ]
+
+handler404 = 'Blog.views.handle_404_error'

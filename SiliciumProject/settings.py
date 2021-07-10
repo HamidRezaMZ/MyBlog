@@ -154,3 +154,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 STAR_RATINGS_STAR_HEIGHT = 20
+

@@ -1,7 +1,6 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from .models import Article, Category
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.views.generic import DetailView, ListView
 from Account.models import User
 from Account.mixins import AuthorAccessMixin
 
@@ -74,3 +73,11 @@ class SearchList(ListView):
         context = super().get_context_data(**kwargs)
         context['search'] = self.request.GET.get('q')
         return context
+
+
+def AboutUs(request):
+    return render(request,"about.html")
+
+
+def handle_404_error(request,exception):
+    return render(request,'404.html')
