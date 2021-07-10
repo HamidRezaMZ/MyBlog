@@ -1,6 +1,6 @@
 from django.utils.translation import ngettext
 from django.contrib import admin
-from .models import Article, Category
+from .models import Article, Category,IPAddress
 
 
 @admin.action(description="انتشار مقاله های انتخاب شده")
@@ -43,4 +43,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category, CategoryAdmin)
-admin.site.site_header = "My WebSite"
+admin.site.register(IPAddress)
+admin.site.site_header = "HamidReza"
+

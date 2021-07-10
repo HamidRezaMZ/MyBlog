@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleList, ArticleDetail, CategoryList,AuthorList,ArticlePreview
+from .views import ArticleList, ArticleDetail, CategoryList, AuthorList, ArticlePreview,SearchList
 
 app_name = "Blog"
 
@@ -12,4 +12,6 @@ urlpatterns = [
     path('category/<slug:slug>/page/<int:page>', CategoryList.as_view(), name="Category"),
     path('author/<slug:username>', AuthorList.as_view(), name="Author"),
     path('author/<slug:username>/page/<int:page>', AuthorList.as_view(), name="Author"),
+    path('search/', SearchList.as_view(), name="Search"),
+    path('search/page/<int:page>', SearchList.as_view(), name="Search"),
 ]

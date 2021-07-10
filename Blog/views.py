@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from .models import Article, Category
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -14,7 +14,12 @@ class ArticleList(ListView):
 class ArticleDetail(DetailView):
     def get_object(self, queryset=None):
         slug = self.kwargs.get('slug')
-        return get_object_or_404(Article.objects.published(), slug=slug)
+        article = get_object_or_404(Article.objects.published(), slug=slug)
+        ip_address = self.request.user.ip_address
+        if ip_address not in article.hits.all():
+            article.hits.add(ip_address)
+
+        return article
 
 
 class ArticlePreview(AuthorAccessMixin, DetailView):
@@ -52,4 +57,20 @@ class AuthorList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['author'] = author
+        return context
+
+
+class SearchList(ListView):
+    paginate_by = 1
+    template_name = 'blog/search_list.html'
+
+    def get_queryset(self):
+        search = self.request.GET.get('q')
+        from django.db.models import Q
+        return Article.objects.published().filter(
+            Q(description__icontains=search) | Q(title__icontains=search) | Q(slug__icontains=search))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.get('q')
         return context

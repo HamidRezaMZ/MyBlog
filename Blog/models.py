@@ -1,9 +1,13 @@
 from django.db import models
-from django.utils.timezone import now
 from extensions.utils import jalali_converter
 from django.utils.html import format_html
 from Account.models import User
 from django.urls import reverse
+from datetime import datetime
+
+# --------------- comment -------------------
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
 
 
 # managers
@@ -36,6 +40,17 @@ class Category(models.Model):
     objects = CategoryManager()
 
 
+class IPAddress(models.Model):
+    ip_address = models.GenericIPAddressField(verbose_name="آدرس آی‌پی")
+
+    def __str__(self):
+        return self.ip_address
+
+    class Meta:
+        verbose_name = "آدرس آی پی"
+        verbose_name_plural = "آدرس های آی پی"
+
+
 class Article(models.Model):
     STATUS_CHOICES = (
         ('d', 'پیش نویس'),  # draft
@@ -50,11 +65,15 @@ class Article(models.Model):
     category = models.ManyToManyField(Category, verbose_name="دسته بندی", related_name="article")
     description = models.TextField(verbose_name='توضیحات')
     image = models.ImageField(upload_to="", verbose_name='تصویر')
-    publish = models.DateTimeField(default=now(), verbose_name='تاریخ انتشار')
+    publish = models.DateTimeField(default=datetime.now(), verbose_name='تاریخ انتشار')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_special = models.BooleanField(default=False, verbose_name="مقاله ویژه")
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت')
+    comments = GenericRelation(Comment)
+    hits = models.ManyToManyField(IPAddress, blank=True, related_name="hits",
+                                  verbose_name="بازدیدها")
+
 
     def get_absolute_url(self):
         return reverse("account:home")
@@ -86,3 +105,4 @@ class Article(models.Model):
     category_to_str.short_description = "دسته بندی"
 
     objects = ArticleManager()
+

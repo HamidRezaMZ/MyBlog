@@ -1,6 +1,8 @@
 {% extends "_MainLayout.html" %}
+{% load ratings %}
 {% load static %}
 {% load BaseTags %}
+{% load humanize %}
 {% block Main %}
 
 
@@ -24,28 +26,35 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
+
                 {% for article in object_list %}
                     <div class="post-preview">
                         <a href="{% url 'Blog:Article' article.slug %}">
                             <h2 class="post-title">
                                 {{ article.title }}
+
                                 {% if article.is_special %}
                                     <span class="badge badge-danger" style="font-size: 14px">ویژه</span>
                                 {% endif %}
                             </h2>
+                            {% ratings article %}
                             <h3 class="post-subtitle">
                                 {{ article.description|striptags|safe|truncatewords:30 }}
                             </h3>
                         </a>
+
                         <p class="post-meta">
+
                             ارائه شده توسط :
                             <a href="{% url "Blog:Author" article.author %}">{{ article.author.get_full_name }}</a>
-                            {{ article.jpublish }}
+
+                            {{ article.publish|naturaltime }}
                         <div>
                             {% for cat in article.category_published.all %}
                                 <a href="{% url 'Blog:Category' cat.slug %}">#{{ cat.title }}</a>
                             {% endfor %}
                         </div>
+                    <div style="padding-top: 10px">بازدید : {{ article.hits.count }}</div>
                         </p>
                     </div>
                     <hr>

@@ -1,0 +1,15 @@
+{% extends "star_ratings/widget_base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block rating_detail %}
+    {% if not user.is_authenticated %}
+        <div style="padding-bottom: 10px">برای ثبت امتیاز وارد شوید.</div>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

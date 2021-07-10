@@ -14,6 +14,8 @@ from pathlib import Path
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 LOGIN_REDIRECT_URL = "Account:home"
@@ -45,6 +47,10 @@ INSTALLED_APPS = [
     'extensions',
     'widget_tweaks',
     'crispy_forms',
+    'django_gravatar',
+    'comment',
+    'star_ratings',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [
@@ -55,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Blog.middleware.SaveIPAddressMiddleware',
 ]
 
 ROOT_URLCONF = 'SiliciumProject.urls'
@@ -143,5 +150,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTH_USER_MODEL = 'Account.User'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+STAR_RATINGS_STAR_HEIGHT = 20

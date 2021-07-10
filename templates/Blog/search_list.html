@@ -1,0 +1,24 @@
+{% extends "Blog/list.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search|{{ search }}</title>
+</head>
+<body>
+
+
+{% block header %}
+    <h3 class="alert alert-primary text-center">
+        جستجو : {{ search }}
+    </h3>
+{% endblock %}
+
+{% block next_page_pervious %}
+    {% url "Blog:Search"  page_obj.previous_page_number %}?q={{ search }}
+{% endblock %}
+{% block next_page_url %}
+    {% url "Blog:Search"  page_obj.next_page_number %}?q={{ search }}
+{% endblock %}
+</body>
+</html>

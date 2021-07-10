@@ -1,18 +1,22 @@
+<link rel="stylesheet" href="r">
 <div class="collapse navbar-collapse nav" id="navbarResponsive">
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'Blog:Home' %}" style="font-family: Sahel;font-weight: bold;">خانه</a>
-    </li>
-    {% for cat in category %}
-      {% if cat.parent == None %}
+    <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'Blog:Category' cat.slug %}">{{cat.title}}</a>
-          {% if cat.children.active %}
-            {% include 'Blog/partials/Category_Loop.html' %}
-          {% endif %}
+            <a class="nav-link" href="{% url 'Blog:Home' %}" style="font-family: Sahel;font-weight: bold;">خانه</a>
         </li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-
+        {% for cat in category %}
+            {% if cat.parent == None %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Blog:Category' cat.slug %}">{{ cat.title }}</a>
+                    {% if cat.children.active %}
+                        {% include 'Blog/partials/Category_Loop.html' %}
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <form class="form-inline mt-3" action="{% url "Blog:Search" %}">
+        <input type="text" name="q" class="form-control myfont" placeholder="جستجو...">
+        <button class="btn btn-success" style="padding: 8px;border-radius: 5px;margin-right: 5px;">جستجو</button>
+    </form>
 </div>
